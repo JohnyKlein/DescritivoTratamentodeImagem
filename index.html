@@ -3,19 +3,20 @@
         <title>
             Descritivo Tratamento de Imagem
         </title>
+
     </head>
   <body>
     
 
-
-    
     <script src="xlsx.full.min.js"></script>
+    
+    
     
     <script>
         
-        
+        //STEP 1
         /* set up XMLHttpRequest */
-        var url = "DescritivosXlsx/WonderWoman.xlsx";
+        var url = "WonderWoman.xlsx";
         var oReq = new XMLHttpRequest();
         oReq.open("GET", url, true);
         oReq.responseType = "arraybuffer";
@@ -33,11 +34,18 @@
           var workbook = XLSX.read(bstr, {type:"binary"});
 
           /* DO SOMETHING WITH workbook HERE */
+            
+            
+        //STEP 2
+        var first_sheet_name = workbook.SheetNames[0];
+        /* Get worksheet */
+        var worksheet = workbook.Sheets[first_sheet_name];        
+        
+        //STEP 3
+        console.log(XLSX.utils.sheet_to_json(worksheet));            
         }
-
+        
         oReq.send();  
-        
-        
         
     </script>
     
