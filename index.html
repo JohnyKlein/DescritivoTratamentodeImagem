@@ -1,55 +1,33 @@
-<html>
+<html lang="pt-br">
     <head>
         <title>
             Descritivo Tratamento de Imagem
         </title>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles/style.css"/>
     </head>
   <body>
-    
 
+      <div class="row">
+          <div class="col-md-10 offset-md-1">
+              <form action="showDescritivos.html" method="get">
+                <h1>Selecionar descritivo:</h1> 
+                <input name="arquivo" type="file" id="arquivo">
+                <br/>
+                <div class="col-md-7 offset-md-5">
+<!--                  <a href="showDescritivos.html">-->
+                      <button type="submit" class="btn btn-dark">Gerar Descritivo</button>
+<!--                  </a>      -->
+                </div>
+              </form>
+          </div> 
+      </div> 
+      
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-   KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>  
     <script src="xlsx.full.min.js"></script>
-    
-    
-    
-    <script>
-        
-        //Library
-        var url = "WonderWoman.xlsx";
-        var oReq = new XMLHttpRequest();
-        oReq.open("GET", url, true);
-        oReq.responseType = "arraybuffer";
-
-        oReq.onload = function(e) {
-          var arraybuffer = oReq.response;
-
-          var data = new Uint8Array(arraybuffer);
-          var arr = new Array();
-          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-          var bstr = arr.join("");
-          var workbook = XLSX.read(bstr, {type:"binary"});
-
-          var first_sheet_name = workbook.SheetNames[0];
-          var worksheet = workbook.Sheets[first_sheet_name];        
-          var descritivo = XLSX.utils.sheet_to_json(worksheet);
-        
-          
-          //ToString  
-          descritivo.toString = function descritivoToString(i){
-              var descritivo = ' Referência = ' + this[i].referencia + ' Cores = ' + this[i].cores + ' Descrição = ' + this[i].descricao  + ' Tamanho = ' + this[i].tamanho;
-             return descritivo;
-          }
-          
-          //InnerHtml
-          descritivo.forEach(function(item, index){
-            document.write(descritivo.toString(index)); 
-            document.write("<br/>"); 
-          });    
-        }
-        
-        oReq.send();  
-        
-    </script>
-    
+    <script src="scripts/app.js"></script>
+      
   </body>    
 </html>
