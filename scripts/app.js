@@ -9,10 +9,7 @@
         data[chave] = valor;
     });
 
-    //console.log(data.arquivo.replace(/\+/g, " ")); // Object {lang: "pt", page: "home"}
-
     //Lib Write Xlx
-    //WonderWoman
      var url = "descritivos/" + data.arquivo.replace(/\+/g, " ");
      var oReq = new XMLHttpRequest();
      oReq.open("GET", url, true);
@@ -60,8 +57,7 @@
          }
          indexCont++;
      }
-     //console.log(index);
-     var cabecalho = []; //Cabeçalho/Atribudos Tabela      
+     var cabecalho = [], tabelaCab; //Cabeçalho/Atribudos Tabela      
      cont = 0;     
      for(i = 0; i < index.length; i++){
          cont++;
@@ -71,13 +67,26 @@
              cont = 0; 
          }
      }
-     console.log(cabecalho);     
+    
+     cabecalho.forEach(function(item){
+        tabelaCab += $('#headTable').append("<th>" + item + "</th>");                  
+     });     
+             
      
      //ToString Corpo Table 
      descritivo.toString = function descritivoToString(i){   
-     var descritivoString = "<tr>" + "<td>" + this[i]["referencia"] + "</td>" + "<td>" + this[i].cores + "</td>" + 
-     "<td>" + this[i].tamanho + "</td>" + "<td>"+ this[i].Correções + "</td>" + "</tr>"; 
-     return descritivoString;
+     var descritivoString, index = i;
+        descritivoString = "";
+        descritivoString += "<tr>";
+        cabecalho.forEach(function(item){
+           if( descritivo[index][item] == undefined){
+              descritivoString += "<td>" + " "  + "</td>"; 
+           } else {   
+              descritivoString += "<td>" + descritivo[index][item] + "</td>";    
+           }       
+        });
+        descritivoString += "</tr>"; 
+        return descritivoString;
      }
           
      //InnerHtml
